@@ -1,8 +1,12 @@
 name: Build Nintendo 3DS Exporter
 on:
   push:
+    tags: ['v*']
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -49,13 +53,25 @@ jobs:
           mkdir -p dist/3ds/GameVault-3DS-Exporter
           cp GameVault-3DS-Exporter.3dsx dist/3ds/GameVault-3DS-Exporter/
           cp README_SD.txt dist/3ds/GameVault-3DS-Exporter/README.txt
-          cd dist && zip -r ../GameVault-Nintendo-3DS-Exporter_v0.1.0-dev3.zip 3ds
+          cd dist && zip -r ../GameVault-Nintendo-3DS-Exporter_v0.1.0.zip 3ds
+      - name: Prepare release files
+        run: cp GameVault-3DS-Exporter.cia GameVault-3DS-Exporter_v0.1.0.cia
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: GameVault-Nintendo-3DS-Exporter-v0.1.0-dev3
+          name: GameVault-Nintendo-3DS-Exporter-v0.1.0
           path: |
             GameVault-3DS-Exporter.3dsx
-            GameVault-3DS-Exporter.cia
-            GameVault-Nintendo-3DS-Exporter_v0.1.0-dev3.zip
+            GameVault-3DS-Exporter_v0.1.0.cia
+            GameVault-Nintendo-3DS-Exporter_v0.1.0.zip
           if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-dev')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: GameVault Nintendo 3DS Exporter ${{ github.ref_name }}
+          body_path: RELEASE_NOTES_v0.1.0.md
+          files: |
+            GameVault-Nintendo-3DS-Exporter_v0.1.0.zip
+            GameVault-3DS-Exporter_v0.1.0.cia

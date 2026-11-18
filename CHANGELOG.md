@@ -1,17 +1,18 @@
 # Changelog
 
-## v0.1.0-dev3
-- Adds explicit CTR/TWL/system subtypes, raw title category and 24-bit Unique ID.
-- Improves on-device summary for Demo, TWL/DSiWare and System categories.
-- Keeps the validated AM + localized SMDH path unchanged.
+## v0.1.0
 
-## v0.1.0-dev3
-- Initial read-only AM inventory probe.
-- NAND, SD and Game Card enumeration.
-- Title ID, size, version and preliminary content-type export.
-- Atomic JSON output to SD.
-- GitHub Actions 3DSX build and copy-ready SD package.
+### Added
+- Read-only AM inventory of NAND, SD and optional Game Card titles.
+- Installed size and version from `AM_GetTitleInfo`.
+- CTR Game, Demo, Update, DLC, TWL/DSiWare and system-title classification.
+- Parent Title ID and 24-bit Unique ID extraction.
+- Localized installed SMDH metadata: title, long description, publisher and region.
+- Atomic JSON export to SD.
+- Homebrew Launcher 3DSX package.
+- Installable HOME Menu CIA with custom SMDH/icon and banner.
+- GitHub Actions builds for both distribution formats.
 
-### CIA packaging test
-- GitHub Actions additionally emits an installable CIA using makerom 0.18.4.
-- The normal copy-ready 3DSX artifact remains unchanged.
+### Validation
+- Tested on real Nintendo 3DS hardware.
+- CIA and 3DSX exports verified byte-identical using MD5 checksums.

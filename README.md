@@ -2,47 +2,62 @@
 
 Read-only Nintendo 3DS installed-title inventory exporter for GameVault.
 
-## v0.1.0-dev3
+## Features
 
-This second hardware build combines AM enumeration with local installed-title SMDH metadata:
+- Enumerates installed titles through the Nintendo 3DS AM service; no `title.db` decryption is required.
+- Scans NAND and SD, and reports Game Card presence when available.
+- Exports 16-digit Title ID, parent Title ID, 24-bit Unique ID, media, installed version and installed size.
+- Classifies CTR applications, demos, patches/updates, add-on content/DLC, TWL/DSiWare and system-title subtypes.
+- Reads installed SMDH metadata read-only for localized name, long description, publisher and region.
+- Writes atomically to `sd:/3ds/GameVault-3DS-Exporter/installed_titles.json`.
+- Available as both Homebrew Launcher `.3dsx` and installable `.cia`.
 
-- 16-digit Title ID
-- media source: NAND, SD, or Game Card
-- installed version
-- installed size in bytes
-- preliminary type classification (Game, Update, DLC, System, TWL/DSiWare, Other)
-- canonical parent Title ID for Update/DLC candidates
+## Installation
 
-It does **not** read/decrypt `title.db` and does not modify installed content.
+### Homebrew Launcher
 
-Output: `sd:/3ds/GameVault-3DS-Exporter/installed_titles.json`
+Use the release ZIP and copy its `3ds` directory to the root of the SD card. Launch `GameVault-3DS-Exporter.3dsx` from Homebrew Launcher.
 
-## Install / run
+### CIA / HOME Menu
 
-Download the GitHub Actions artifact and copy the contained `3ds` directory to the root of the SD card. Then start `GameVault-3DS-Exporter.3dsx` from Homebrew Launcher.
+Install `GameVault-3DS-Exporter_v0.1.0.cia` with FBI, then start **GameVault 3DS Exporter** from the HOME Menu.
 
-A later milestone can add a CIA build after the 3DSX probe is validated on real hardware.
+The CIA contains its own SMDH/icon and HOME Menu banner. The CIA and 3DSX use the same inventory engine.
+
+## Hardware validation
+
+v0.1.0 was validated on real 3DS hardware. The CIA and 3DSX builds produced byte-identical `installed_titles.json` output; equality was independently verified by MD5 comparison.
+
+## Output
+
+`sd:/3ds/GameVault-3DS-Exporter/installed_titles.json`
+
+The v0.1.0 schema contains:
+
+- `schemaVersion: 3`
+- `exporterVersion: 0.1.0`
+- AM media statistics for NAND, SD and Game Card
+- SMDH success/missing counters
+- per-title Title ID, parent ID, category, subtype, Unique ID, name, description, publisher, region, version and installed size
+
+## Controls
+
+- **A**: export again
+- **START**: exit
+
+## Safety
+
+The exporter is read-only with respect to installed titles. It does not install, delete, alter or decrypt titles, tickets, CIAs, saves, NAND contents or `title.db`. The only file it writes is its JSON export on SD.
 
 ## Build
 
-GitHub Actions uses the official `devkitpro/devkitarm:latest` image with devkitARM/libctru and produces a copy-ready SD ZIP plus the raw `.3dsx`.
+GitHub Actions uses the official `devkitpro/devkitarm:latest` image. It builds the common ELF/3DSX application, creates CIA SMDH/banner metadata with `bannertool`, and packages the CIA with `makerom`.
+
+The stable tag workflow publishes:
+
+- `GameVault-Nintendo-3DS-Exporter_v0.1.0.zip`
+- `GameVault-3DS-Exporter_v0.1.0.cia`
 
 ## License
 
 MIT. See `LICENSE`, `NOTICE`, and `THIRD_PARTY_LICENSES.md`.
-
-## SMDH metadata in dev2
-
-For non-system CTR titles, dev2 opens the installed icon/SMDH from `ARCHIVE_SAVEDATA_AND_CONTENT` using the same read-only archive method used by FBI. It exports the localized short title, long description, publisher, region mask and readable region list. The system language is preferred, with a region-based/default-language fallback and then the first non-empty title slot.
-
-The exporter remains read-only and does not include an FTP server. Use the maintained standalone 3DS `ftpd` application when transferring the JSON.
-
-## Installable CIA build
-
-GitHub Actions now also builds `GameVault-3DS-Exporter.cia` with `makerom` 0.18.4. The existing 3DSX remains available and is the safest fallback if a CIA service-access issue is found during hardware validation.
-
-Install the CIA with FBI, then start **GameVault 3DS Exporter** from the HOME Menu. The CIA is configured for SD/NAND read access and the AM service used by the installed-title scanner; the exporter itself remains read-only and writes only its JSON on SD.
-
-### CIA packaging correction
-
-The CIA build now includes a real SMDH/icon and HOME Menu banner, and its ExHeader/RSF process settings, SVC list, service list, memory mappings and system-module dependencies are aligned with the proven FBI-NH CIA packaging model. The 3DSX remains built from the same application code.

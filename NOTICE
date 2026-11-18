@@ -1,27 +1,13 @@
-GameVault Nintendo 3DS Exporter
+GameVault Nintendo 3DS Exporter v0.1.0
 Copyright (c) 2026 Dominic Hitschel
+SPDX-License-Identifier: MIT
 
-Installed-title enumeration uses the public libctru AM service interfaces.
-Design and title-management behavior were informed by the following permissively
-licensed open-source projects:
+The exporter uses the public libctru AM and filesystem interfaces.
+Installed-title SMDH archive access, language fallback and region handling were
+informed by FBI's MIT-licensed implementation.
 
-FBI - Steveice10 and contributors
-https://github.com/Steveice10/FBI
-MIT License
+FBI-NH was used as a known-working reference for CIA ExHeader/RSF packaging.
+See THIRD_PARTY_LICENSES.md for third-party projects, URLs and usage details.
 
-3DS App Manager - Marcogn and contributors
-https://github.com/Marcogn/3DSAppManager
-MIT License
-
-libctru - devkitPro contributors
-https://github.com/devkitPro/libctru
-zlib-style license
-
-This dev1 exporter is read-only with respect to installed titles: it does not
-install, delete, modify or decrypt title.db, tickets, CIAs, saves, NAND titles,
-or SD titles.
-
-v0.1.0-dev2 includes SMDH archive access, language fallback, and region-string
-logic derived from FBI's MIT-licensed SMDH implementation. Relevant upstream
-copyright and license terms remain acknowledged here and in
-THIRD_PARTY_LICENSES.md.
+No FBI, FBI-NH, bannertool or makerom binary is included in the released 3DSX
+or CIA application. Build-time tools are retrieved by GitHub Actions.
