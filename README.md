@@ -36,3 +36,13 @@ MIT. See `LICENSE`, `NOTICE`, and `THIRD_PARTY_LICENSES.md`.
 For non-system CTR titles, dev2 opens the installed icon/SMDH from `ARCHIVE_SAVEDATA_AND_CONTENT` using the same read-only archive method used by FBI. It exports the localized short title, long description, publisher, region mask and readable region list. The system language is preferred, with a region-based/default-language fallback and then the first non-empty title slot.
 
 The exporter remains read-only and does not include an FTP server. Use the maintained standalone 3DS `ftpd` application when transferring the JSON.
+
+## Installable CIA build
+
+GitHub Actions now also builds `GameVault-3DS-Exporter.cia` with `makerom` 0.18.4. The existing 3DSX remains available and is the safest fallback if a CIA service-access issue is found during hardware validation.
+
+Install the CIA with FBI, then start **GameVault 3DS Exporter** from the HOME Menu. The CIA is configured for SD/NAND read access and the AM service used by the installed-title scanner; the exporter itself remains read-only and writes only its JSON on SD.
+
+### CIA packaging correction
+
+The CIA build now includes a real SMDH/icon and HOME Menu banner, and its ExHeader/RSF process settings, SVC list, service list, memory mappings and system-module dependencies are aligned with the proven FBI-NH CIA packaging model. The 3DSX remains built from the same application code.

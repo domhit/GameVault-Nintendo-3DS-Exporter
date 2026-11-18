@@ -14,10 +14,36 @@ jobs:
       DEVKITARM: /opt/devkitpro/devkitARM
       CTRULIB: /opt/devkitpro/libctru
       PORTLIBS: /opt/devkitpro/portlibs/3ds
+      PATH: /opt/devkitpro/tools/bin:/opt/devkitpro/devkitARM/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     steps:
       - uses: actions/checkout@v4
-      - name: Build 3DSX
+      - name: Install CIA tools
+        run: |
+          set -eux
+          apt-get update
+          apt-get install -y --no-install-recommends imagemagick curl unzip ca-certificates
+          mkdir -p /opt/devkitpro/tools/bin
+          curl -L https://github.com/3DSGuy/Project_CTR/releases/download/makerom-v0.18.4/makerom-v0.18.4-ubuntu_x86_64.zip -o /tmp/makerom.zip
+          unzip -j /tmp/makerom.zip -d /opt/devkitpro/tools/bin
+          chmod +x /opt/devkitpro/tools/bin/makerom
+          curl -fL https://github.com/Epicpkmn11/bannertool/releases/download/v1.2.2/bannertool.zip -o /tmp/bannertool.zip
+          test -s /tmp/bannertool.zip
+          unzip -l /tmp/bannertool.zip
+          unzip -j /tmp/bannertool.zip 'linux-x86_64/bannertool' -d /opt/devkitpro/tools/bin || unzip -j /tmp/bannertool.zip 'linux*/bannertool' -d /opt/devkitpro/tools/bin
+          test -x /opt/devkitpro/tools/bin/bannertool || chmod +x /opt/devkitpro/tools/bin/bannertool
+          /opt/devkitpro/tools/bin/bannertool --help >/dev/null 2>&1 || true
+      - name: Build 3DSX and ELF
         run: make -j2
+      - name: Validate CIA artwork
+        run: |
+          test "$(identify -format '%wx%h' meta/icon.png)" = "48x48"
+          test "$(identify -format '%wx%h' meta/banner.png)" = "256x128"
+      - name: Build CIA metadata
+        run: |
+          bannertool makesmdh -s "GameVault 3DS Exporter" -l "Export installed titles for GameVault" -p "GameVault" -i meta/icon.png -o meta/icon.icn
+          bannertool makebanner -i meta/banner.png -a meta/banner.wav -o meta/banner.bnr
+      - name: Build CIA
+        run: makerom -f cia -o GameVault-3DS-Exporter.cia -rsf meta/banner.rsf -target t -exefslogo -elf GameVault-3DS-Exporter.elf -icon meta/icon.icn -banner meta/banner.bnr
       - name: Prepare SD package
         run: |
           mkdir -p dist/3ds/GameVault-3DS-Exporter
@@ -30,5 +56,6 @@ jobs:
           name: GameVault-Nintendo-3DS-Exporter-v0.1.0-dev3
           path: |
             GameVault-3DS-Exporter.3dsx
+            GameVault-3DS-Exporter.cia
             GameVault-Nintendo-3DS-Exporter_v0.1.0-dev3.zip
           if-no-files-found: error

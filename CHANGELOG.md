@@ -11,3 +11,7 @@
 - Title ID, size, version and preliminary content-type export.
 - Atomic JSON output to SD.
 - GitHub Actions 3DSX build and copy-ready SD package.
+
+### CIA packaging test
+- GitHub Actions additionally emits an installable CIA using makerom 0.18.4.
+- The normal copy-ready 3DSX artifact remains unchanged.

@@ -9,6 +9,10 @@ BUILD       := build
 SOURCES     := source
 DATA        := data
 INCLUDES    := include
+APP_TITLE       := GameVault 3DS Exporter
+APP_DESCRIPTION := Export installed titles for GameVault
+APP_AUTHOR      := GameVault
+ICON            := meta/icon.png
 
 ARCH        := -march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
 CFLAGS      := -g -Wall -Wextra -O2 -mword-relocations -ffunction-sections $(ARCH)
