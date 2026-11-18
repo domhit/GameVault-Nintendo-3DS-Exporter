@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.1.0-dev1
+## v0.1.0-dev2
 - Initial read-only AM inventory probe.
 - NAND, SD and Game Card enumeration.
 - Title ID, size, version and preliminary content-type export.

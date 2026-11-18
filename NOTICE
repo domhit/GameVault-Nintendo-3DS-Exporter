@@ -20,3 +20,8 @@ zlib-style license
 This dev1 exporter is read-only with respect to installed titles: it does not
 install, delete, modify or decrypt title.db, tickets, CIAs, saves, NAND titles,
 or SD titles.
+
+v0.1.0-dev2 includes SMDH archive access, language fallback, and region-string
+logic derived from FBI's MIT-licensed SMDH implementation. Relevant upstream
+copyright and license terms remain acknowledged here and in
+THIRD_PARTY_LICENSES.md.

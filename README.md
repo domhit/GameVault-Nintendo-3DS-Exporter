@@ -2,9 +2,9 @@
 
 Read-only Nintendo 3DS installed-title inventory exporter for GameVault.
 
-## v0.1.0-dev1
+## v0.1.0-dev2
 
-This first hardware-probe build intentionally exports only data returned by the 3DS AM service:
+This second hardware build combines AM enumeration with local installed-title SMDH metadata:
 
 - 16-digit Title ID
 - media source: NAND, SD, or Game Card
@@ -30,3 +30,9 @@ GitHub Actions uses the official `devkitpro/devkitarm:latest` image with devkitA
 ## License
 
 MIT. See `LICENSE`, `NOTICE`, and `THIRD_PARTY_LICENSES.md`.
+
+## SMDH metadata in dev2
+
+For non-system CTR titles, dev2 opens the installed icon/SMDH from `ARCHIVE_SAVEDATA_AND_CONTENT` using the same read-only archive method used by FBI. It exports the localized short title, long description, publisher, region mask and readable region list. The system language is preferred, with a region-based/default-language fallback and then the first non-empty title slot.
+
+The exporter remains read-only and does not include an FTP server. Use the maintained standalone 3DS `ftpd` application when transferring the JSON.
