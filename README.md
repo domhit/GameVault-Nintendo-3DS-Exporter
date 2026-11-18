@@ -2,7 +2,7 @@
 
 Read-only Nintendo 3DS installed-title inventory exporter for GameVault.
 
-## v0.1.0-dev2
+## v0.1.0-dev3
 
 This second hardware build combines AM enumeration with local installed-title SMDH metadata:
 

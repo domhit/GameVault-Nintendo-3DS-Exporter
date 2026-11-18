@@ -23,12 +23,12 @@ jobs:
           mkdir -p dist/3ds/GameVault-3DS-Exporter
           cp GameVault-3DS-Exporter.3dsx dist/3ds/GameVault-3DS-Exporter/
           cp README_SD.txt dist/3ds/GameVault-3DS-Exporter/README.txt
-          cd dist && zip -r ../GameVault-Nintendo-3DS-Exporter_v0.1.0-dev2.zip 3ds
+          cd dist && zip -r ../GameVault-Nintendo-3DS-Exporter_v0.1.0-dev3.zip 3ds
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: GameVault-Nintendo-3DS-Exporter-v0.1.0-dev2
+          name: GameVault-Nintendo-3DS-Exporter-v0.1.0-dev3
           path: |
             GameVault-3DS-Exporter.3dsx
-            GameVault-Nintendo-3DS-Exporter_v0.1.0-dev2.zip
+            GameVault-Nintendo-3DS-Exporter_v0.1.0-dev3.zip
           if-no-files-found: error

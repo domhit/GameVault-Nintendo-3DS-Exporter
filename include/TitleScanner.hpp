@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 struct ExportTitle {
- uint64_t titleId=0,size=0; uint16_t version=0; std::string mediaType,kind,parentTitleId;
+ uint64_t titleId=0,size=0; uint16_t version=0; std::string mediaType,kind,subtype,parentTitleId;
+ uint32_t titleCategory=0,uniqueId=0;
  bool smdhAvailable=false; std::string name,longDescription,publisher,region; uint32_t regionMask=0; int32_t smdhResult=0;
 };
 struct ScanSummary {
