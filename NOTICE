@@ -1,0 +1,22 @@
+GameVault Nintendo 3DS Exporter
+Copyright (c) 2026 Dominic Hitschel
+
+Installed-title enumeration uses the public libctru AM service interfaces.
+Design and title-management behavior were informed by the following permissively
+licensed open-source projects:
+
+FBI - Steveice10 and contributors
+https://github.com/Steveice10/FBI
+MIT License
+
+3DS App Manager - Marcogn and contributors
+https://github.com/Marcogn/3DSAppManager
+MIT License
+
+libctru - devkitPro contributors
+https://github.com/devkitPro/libctru
+zlib-style license
+
+This dev1 exporter is read-only with respect to installed titles: it does not
+install, delete, modify or decrypt title.db, tickets, CIAs, saves, NAND titles,
+or SD titles.
