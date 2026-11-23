@@ -6,7 +6,7 @@ Read-only Nintendo 3DS installed-title inventory exporter for GameVault.
 
 - Enumerates installed titles through the Nintendo 3DS AM service; no `title.db` decryption is required.
 - Scans NAND and SD, and reports Game Card presence when available.
-- Exports 16-digit Title ID, parent Title ID, 24-bit Unique ID, media, installed version and installed size.
+- Exports 16-digit Title ID, parent Title ID, 24-bit Unique ID, **Product Code**, media, installed version and installed size.
 - Classifies CTR applications, demos, patches/updates, add-on content/DLC, TWL/DSiWare and system-title subtypes.
 - Reads installed SMDH metadata read-only for localized name, long description, publisher and region.
 - Writes atomically to `sd:/3ds/GameVault-3DS-Exporter/installed_titles.json`.
@@ -38,7 +38,7 @@ The v0.1.0 schema contains:
 - `exporterVersion: 0.1.0`
 - AM media statistics for NAND, SD and Game Card
 - SMDH success/missing counters
-- per-title Title ID, parent ID, category, subtype, Unique ID, name, description, publisher, region, version and installed size
+- per-title Title ID, parent ID, category, subtype, Unique ID, Product Code, name, description, publisher, region, version and installed size
 
 ## Controls
 

@@ -1,3 +1,13 @@
+### v0.1.1-dev1
+
+#### Added
+- Read-only Product Code lookup for every installed title through libctru `AM_GetTitleProductCode`.
+- `productCode` and nonfatal `productCodeResult` fields in schema v4 JSON.
+
+#### Notes
+- Product-code lookup failures do not abort scanning or hide otherwise valid installed titles.
+- Existing Title ID, parent-ID, SMDH, version and installed-size logic is unchanged.
+
 # Changelog
 
 ## v0.1.0
