@@ -1,4 +1,4 @@
-GameVault Nintendo 3DS Exporter v0.1.1-dev1
+GameVault Nintendo 3DS Exporter v0.1.1
 
 Launch GameVault-3DS-Exporter.3dsx from Homebrew Launcher.
 

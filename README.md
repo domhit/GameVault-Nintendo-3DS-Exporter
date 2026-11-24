@@ -20,25 +20,25 @@ Use the release ZIP and copy its `3ds` directory to the root of the SD card. Lau
 
 ### CIA / HOME Menu
 
-Install `GameVault-3DS-Exporter_v0.1.0.cia` with FBI, then start **GameVault 3DS Exporter** from the HOME Menu.
+Install `GameVault-3DS-Exporter_v0.1.1.cia` with FBI, then start **GameVault 3DS Exporter** from the HOME Menu.
 
 The CIA contains its own SMDH/icon and HOME Menu banner. The CIA and 3DSX use the same inventory engine.
 
 ## Hardware validation
 
-v0.1.0 was validated on real 3DS hardware. The CIA and 3DSX builds produced byte-identical `installed_titles.json` output; equality was independently verified by MD5 comparison.
+v0.1.1 was validated on real Nintendo 3DS hardware with Product Code export and GameVault/GameTDB canonical-title resolution. The CIA and 3DSX builds produced byte-identical `installed_titles.json` output; equality was independently verified by MD5 comparison.
 
 ## Output
 
 `sd:/3ds/GameVault-3DS-Exporter/installed_titles.json`
 
-The v0.1.0 schema contains:
+The v0.1.1 schema contains:
 
-- `schemaVersion: 3`
-- `exporterVersion: 0.1.0`
+- `schemaVersion: 4`
+- `exporterVersion: 0.1.1`
 - AM media statistics for NAND, SD and Game Card
 - SMDH success/missing counters
-- per-title Title ID, parent ID, category, subtype, Unique ID, Product Code, name, description, publisher, region, version and installed size
+- per-title Title ID, parent ID, category, subtype, Unique ID, Product Code and Product Code result, name, description, publisher, region, version and installed size
 
 ## Controls
 
@@ -55,8 +55,8 @@ GitHub Actions uses the official `devkitpro/devkitarm:latest` image. It builds t
 
 The stable tag workflow publishes:
 
-- `GameVault-Nintendo-3DS-Exporter_v0.1.0.zip`
-- `GameVault-3DS-Exporter_v0.1.0.cia`
+- `GameVault-Nintendo-3DS-Exporter_v0.1.1.zip`
+- `GameVault-3DS-Exporter_v0.1.1.cia`
 
 ## License
 
